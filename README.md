@@ -137,6 +137,7 @@ Install required node modules in the cloned folder with
 
 ```
 npm install node-fetch 
+npm install node-fetch@2
 npm install eosjs 
 npm install fs
 npm install fs-extra
