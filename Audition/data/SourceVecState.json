@@ -1,0 +1,16 @@
+[
+  {
+    "id": 0,
+    "source": "fleet",
+    "key": "color",
+    "value": "red",
+    "flag": ""
+  },
+  {
+    "id": 1,
+    "source": "fleet",
+    "key": "year",
+    "value": "2013",
+    "flag": ""
+  }
+]
