@@ -130,7 +130,7 @@ To stop the blockchain use the command `pkill nodeos`, that should always be don
  To clone this repo, change on the VM to a folder where the project should be stored 
   
 ```
-git clone https://github.com/janberner/replayTutorial.git
+git clone https://github.com/janberner/AuditingTutorial.git
 ```
 Login with your Github credentials. 
 Install required node modules in the cloned folder with 
