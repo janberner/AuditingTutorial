@@ -279,7 +279,7 @@ You also have to make a few small changes in the code
 
 ## Populate vehicle state 
 
-Every time before you start to add informatoin (kvps) to the blockchain please run the script *Audition/app.js* with `node Audition/app.js`, make sure you are in the root folder of the project. Keep the app running and use a new terminal for further inputs. 
+Every time before you start to add informatoin (kvps) to the blockchain please run the script *Audition/app.js* with `node Audition/notarFunction.js`, make sure you are in the root folder of the project. Keep the app running and use a new terminal for further inputs. 
 The app periodically writes the blockID and the timestamp to the smart contract you deployed in the previous step. Hence we are using the public Jungle testnet the rescources are limited, only keep the app running as long as necessary.  
 While the app is running you can start populate the vehicle state with (pseudo) data. To do so open a new terminal, you can either use the cleos command directly in the terminal using  
 ```
