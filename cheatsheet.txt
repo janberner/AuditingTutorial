@@ -1,0 +1,52 @@
+start nodeos without state-history:
+
+nodeos -e -p eosio \
+--plugin eosio::producer_plugin \
+--plugin eosio::producer_api_plugin \
+--plugin eosio::chain_api_plugin \
+--plugin eosio::http_plugin \
+--plugin eosio::history_plugin \
+--plugin eosio::history_api_plugin \
+--filter-on="*" \
+--access-control-allow-origin='*' \
+--contracts-console \
+--http-validate-host=false \
+--verbose-http-errors >> nodeos.log 2>&1 &
+
+
+
+start nodeos without producing blocks:
+
+nodeos -e -p eosio \
+--plugin eosio::producer_plugin -x \
+--plugin eosio::producer_api_plugin \
+--plugin eosio::chain_api_plugin \
+--plugin eosio::http_plugin \
+--plugin eosio::history_plugin \
+--plugin eosio::history_api_plugin \
+--filter-on="*" \
+--access-control-allow-origin='*' \
+--contracts-console \
+--http-validate-host=false \
+--verbose-http-errors >> nodeos.log 2>&1 &
+
+
+
+basic nodeos replay:
+
+
+nodeos --replay-blockchain \
+  --plugin eosio::producer_plugin \
+  --plugin eosio::producer_api_plugin \
+  --plugin eosio::chain_api_plugin  \
+  --plugin eosio::http_plugin \
+  >> nodeos.log 2>&1 &
+
+
+
+unlock wallet:
+cleos wallet unlock 
+
+
+
+

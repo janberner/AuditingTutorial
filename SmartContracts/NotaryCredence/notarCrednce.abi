@@ -1,0 +1,59 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT ",
+    "version": "eosio::abi/1.2",
+    "types": [],
+    "structs": [
+        {
+            "name": "notaryCredenceModel",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "block_id",
+                    "type": "string"
+                },
+                {
+                    "name": "timestamp",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "savehash",
+            "base": "",
+            "fields": [
+                {
+                    "name": "block_id",
+                    "type": "string"
+                },
+                {
+                    "name": "timestamp",
+                    "type": "string"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "savehash",
+            "type": "savehash",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "notarcrednce",
+            "type": "notaryCredenceModel",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "kv_tables": {},
+    "ricardian_clauses": [],
+    "variants": [],
+    "action_results": []
+}

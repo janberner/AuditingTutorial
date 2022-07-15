@@ -1,0 +1,160 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT ",
+    "version": "eosio::abi/1.2",
+    "types": [],
+    "structs": [
+        {
+            "name": "Source",
+            "base": "",
+            "fields": [
+                {
+                    "name": "source",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "State",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "source",
+                    "type": "name"
+                },
+                {
+                    "name": "key",
+                    "type": "string"
+                },
+                {
+                    "name": "value",
+                    "type": "string"
+                },
+                {
+                    "name": "flag",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "addkvp",
+            "base": "",
+            "fields": [
+                {
+                    "name": "source",
+                    "type": "name"
+                },
+                {
+                    "name": "vehicleId",
+                    "type": "string"
+                },
+                {
+                    "name": "kvps",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "addsource",
+            "base": "",
+            "fields": [
+                {
+                    "name": "source",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "clearkvps",
+            "base": "",
+            "fields": [
+                {
+                    "name": "source",
+                    "type": "name"
+                },
+                {
+                    "name": "vehicleId",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "removekvp",
+            "base": "",
+            "fields": [
+                {
+                    "name": "source",
+                    "type": "name"
+                },
+                {
+                    "name": "vehicleId",
+                    "type": "string"
+                },
+                {
+                    "name": "key",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "removesource",
+            "base": "",
+            "fields": [
+                {
+                    "name": "source",
+                    "type": "name"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "addkvp",
+            "type": "addkvp",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addsource",
+            "type": "addsource",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "clearkvps",
+            "type": "clearkvps",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "removekvp",
+            "type": "removekvp",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "removesource",
+            "type": "removesource",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "sourcemanag",
+            "type": "Source",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "vehiclestate",
+            "type": "State",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "kv_tables": {},
+    "ricardian_clauses": [],
+    "variants": [],
+    "action_results": []
+}
