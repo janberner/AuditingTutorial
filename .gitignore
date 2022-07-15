@@ -1,0 +1,6 @@
+node_modules/
+nodeos.log
+package-lock.json
+package.json
+.vscode/
+Audition/data/*
