@@ -6,7 +6,6 @@ const { RpcError, localrpc } = require('../../init')
 
 async function getBlockNum(block_id) {
     console.log('\nFind the block number of the validated block on source chain')
-    console.log(typeof block_id)
     try {
         const blockInfo = await localrpc.get_block(block_id)
         console.log('Block number: ' + blockInfo.block_num, '\n')
