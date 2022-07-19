@@ -2,8 +2,8 @@
 
 ### Goal of the project
 
-This project will give you all the needed information and code so that you can setup a local blockchain. Deploy smarts contracts to the blockchain and interact with them.  At the end of this tutorial you will be able to populate your own vehicle state, on the blockchain, with information of your choice. You will also have a mechanism (called notary credence) that makes the data on your local blockchain tamper evident using a public blockchain (Jungle Testnet). Thus you will be able to do your own simulated audition. 
-Most of the code is designed to run on a single virtual machine, only the notary function uses a public blockchain via internet. Note the some of the shown setting are not meant to be used in a production environment. This project should be seen as a development project.
+This tutorial will give you all the needed information and scripts so that you can setup a local blockchain. Deploy smarts contracts to the blockchain and interact with them.  At the end of this tutorial you will be able to populate your own vehicle state, on the blockchain. You will also have a mechanism (called notary credence) that makes the data on your local blockchain tamper evident using a public blockchain (Jungle Testnet). Thus you will be able to do your own simulated audition. 
+Most of the code is designed to run on a single virtual machine, only the notary function uses a public blockchain to store information, via internet. Note the some of the shown setting are not meant to be used in a production environment. This project should be seen as a development project.
 The next steps will guide you through all the neccessary installation and configuration. To learn more about the audition process and the idea behind it go to [Audition](#audition-of-the-vehicle-state).
 
 
@@ -27,14 +27,22 @@ Execute following commands in a terminal. You can answer emerging questions duri
 These commands install all requiered tools for Linux.
 ```
 sudo apt-get upgrade
+```
+```
 sudo apt-get update
+```
+```
 sudo apt install npm
+```
+```
 sudo apt install curl 
+```
+```
 sudo apt install git 
 
 ``` 
 
-To run the audition scripts we need a recent nodejs version. A node version 10.xx is not sufficient. To install a working version use these commands 
+To run the scripts we need a recent nodejs version. A node version 10.xx is not sufficient. To install a working version use these commands 
 ```
 curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash - 
 sudo apt install nodejs -y
@@ -57,20 +65,20 @@ Install EOSIO.cdt, a toolchain for WebAssembly (WASM) and set of tools to facili
 wget https://github.com/eosio/eosio.cdt/releases/download/v1.8.0/eosio.cdt_1.8.0-1-ubuntu-18.04_amd64.deb
 sudo apt install ./eosio.cdt_1.8.0-1-ubuntu-18.04_amd64.deb
 ```
-Now that EOSIO is installed on the VM a wallet can be created. For the simplicity of this tutorial some actions are used which are not recommended for production. Like the next command, it creates a wallet which stores the keys to authorize actions on the blockchain and print the password for it to the console. Safe this password for later usage!
+Now that EOSIO is installed on the VM a wallet can be created. For the simplicity of this tutorial some actions are used which are not recommended for production. Like the next command. It creates a wallet, which stores the keys to authorize actions on the blockchain, and prints the password for it to the console. The cryptographic system used by EOSIO is called public-key cryptography or asymmetric cryptography.
 For more imformation about the next step and further options regarding *cleos* please see [developers.eosio/cleos](https://developers.eos.io/manuals/eos/latest/cleos/index).
 
 ```
 cleos wallet create --to-console
 ```
-
+Safe this password for later usage!
 The default wallet can be unlocked using the just recieved password. Notice after some time of inactivity you will have to unlock the wallet again.
-A wallet holds all your private keys to sign transactions and to authorize yourself. 
+A wallet holds all your private keys which are used to sign transactions and to authorize yourself. 
 
 ```
 cleos wallet unlock 
 ```
-We create a pair of private and public key
+We now create a key pair of private and public key with
 ```
 cleos create key --to-console
 ```
@@ -79,10 +87,10 @@ Import private key to local wallet
 ```
 cleos wallet import
 ```
-enter private Key. You will need this private key later in the tutorial.
-The public key is later used to e.g. create accounts. 
-In the next step we import the eosio development key, note this key shouldn´t be used for production since it is publicly known. 
-Type 
+enter private Key. Now that your wallet holds the private key you can use the public key to e.g. create accounts. 
+You will need this private key later in the tutorial.
+In the next step we import the EOSIO development key, note this key shouldn´t be used for production since it is publicly known. 
+Type again
 ```
 cleos wallet import 
 ```
@@ -90,8 +98,8 @@ and enter the following key
 ```
 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 ```
-
-Before we can start the blockchain, we first start [keosd](https://developers.eos.io/manuals/eos/latest/keosd/index/?query=keosd&page=1#gatsby-focus-wrapper) (a dev. tool that manages keys) 
+The fundamentals are now set up and we can start a local blockchain by producing blocks.
+Before we start actually the blockchain, we first start [keosd](https://developers.eos.io/manuals/eos/latest/keosd/index/?query=keosd&page=1#gatsby-focus-wrapper) (a dev. tool that manages keys) 
 
 ```
 keosd & 
@@ -102,7 +110,7 @@ if an error occures most certainly keosd was already running. Just use
 pkill keosd 
 keosd &
 ```
-to stop it and restart it again.
+to stop it process and restart it again.
 
 When starting a blockchain, we can add different plugins to the blockchain to enable specific features. More information about available plugins can be found [here](https://developers.eos.io/manuals/eos/latest/nodeos/plugins/index). With the settings below a blockchain with all basic and neccessary plugins is started and will begin to produce blocks. Note, in the directory the command is executed in, a file will be created *nodeos.log*, it logs the nodeos tool.
 
@@ -123,7 +131,7 @@ nodeos -e -p eosio \
 ```
 
 You can use `tail -f nodeos.log` to see the most recent logs written to the file. Note, it does not contain any information regarding the content of the blockchain!
-To stop the blockchain use the command `pkill nodeos`, that should always be done before turning off the VM, thus the blockchain is shutdown properly. You can use the same command `pkill keosd` to stop keosd. 
+You can stop nodeos and thus also the block production with the command `pkill nodeos`, that should always be done before turning off the VM, thus the blockchain is shutdown properly. You can use the same command `pkill keosd` to stop keosd. For now you can keep it running. 
  
  
  ### Deploy Smart Contracts
@@ -133,7 +141,7 @@ To stop the blockchain use the command `pkill nodeos`, that should always be don
 git clone https://github.com/janberner/AuditingTutorial.git
 ```
 Login with your Github credentials. 
-Install required node modules in the cloned folder with 
+Install the required node modules in the cloned folder with 
 
 ```
 npm install node-fetch 
@@ -151,11 +159,6 @@ cleos create account eosio vehiclestate <public_key>
 
 Use the public key you recieved beforehand. (More info abount [Accounts and permissions](https://developers.eos.io/welcome/latest/protocol-guides/accounts_and_permissions/#31-permission-levels)).
 
-Vehicle state data is depicted as key-value pairs (kvps). Each information has it´s own key with a value associated to it. To add these kvps to the smart contract a second account is requiered.
-
-```
-cleos create account eosio fleet <public_key>
-```
 
 To deploy a smart contract to an account the contract first needs to be build. To do so open the folder *SmartContracts* and run this command. (The warnings can be ignored). Note the command are designed to be executed in the *SmartContracts* folder. After you changed a smart contract code you always have to build it again. 
 
@@ -170,12 +173,13 @@ Now we can deploy the smart contract to the blockchain
 cleos set contract vehiclestate VehicleState/ vehicleState.wasm vehicleState.abi -p vehiclestate@active
 ```
 This deploys the smart contract defined in the *.wasm* and *.abi* file to the account *vehiclestate*. 
-After the contract is successfully deployed the defined actions of the contract can be called. First a owner is added to the *sourcemanag* multi-index-table with the action addsource
+After the contract is successfully deployed we can call the defined actions. 
+The first action we call is *addsource*, it adds a data source to the multi-index-table *sourcemanag*. Only data sources listed here will be able to add vehicle state data. 
 
  ```
  cleos push action vehiclestate addsource '["fleet"]' -p vehiclestate@active
  ```
-  ```
+ ```
  cleos get scope vehiclestate
  ```
  should return the following result
@@ -192,8 +196,8 @@ After the contract is successfully deployed the defined actions of the contract 
   "more": ""
 }
 ```
-You successfully added an entry to the multi-index-table. This entry and also the accounts and smart contract we just used are now written in the blockchain. 
- To retrieve the contents of the table use `cleos get table <account> <scope> <table>`.
+You successfully added an entry to the multi-index-table. This entry and also the accounts and smart contract we just used are now written on the blockchain. 
+ To retrieve the contents of the table use `cleos get table <account> <scope> <table>`. In our case
  ```
  cleos get table vehiclestate vehiclestate sourcemanag 
  ```
@@ -209,7 +213,16 @@ You successfully added an entry to the multi-index-table. This entry and also th
   "next_key_bytes": ""
 }
  ```
-The other smart contract that is used here is called *notarCrednce*. Is simply take a blockId and a timestamp as inputs and stores them in a table. This contract is not deployed on our local blockchain, we see its usage in the next section. 
+ 
+
+The vehicle state information is depicted as key-value pairs (kvps). Each information has it´s own key with a value associated to it. To add these kvps to the smart contract a second account is created. 
+
+```
+cleos create account eosio fleet <public_key>
+```
+The account is called *fleet* and later uses the action *addvps* of the vehiclestate smart contract, to add kvps.
+ 
+The other smart contract that is used in this tutorial is called *notarCrednce*. Is simply take a blockId and a timestamp as inputs and stores them in a table. This contract is not deployed on our local blockchain, we see its usage in the next section. 
 To build it use, in *SmartContracts* folder,
 ```
 cd NotaryCredence/ && eosio-cpp -abigen -I ./include/ -o ./notarCrednce.wasm ./src/NotaryCredence.cpp
