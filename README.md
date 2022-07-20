@@ -346,3 +346,22 @@ nodeos --replay-blockchain \
   >> nodeos.log 2>&1 &
 ```
 to replay the chain. After the replay is done you can stop nodeos `pkill nodeos` and start it agian so it produces new blocks. More infos about the replay see this [Link](https://developers.eos.io/manuals/eos/latest/nodeos/replays/how-to-replay-from-a-blocks.log)
+
+
+If you get an error like "Failed to connect to nodeos at http://127.0.0.1:8888/; is nodeos running?". Your *nodeos* process has not been started and the blockchain is thus running or producing new blocks. You can start *nodeos* with the command from earlier in this tutorial or you can start nodeos without producing blocks, like so
+
+```
+nodeos -e -p eosio \
+--plugin eosio::producer_plugin -x \
+--plugin eosio::producer_api_plugin \
+--plugin eosio::chain_api_plugin \
+--plugin eosio::http_plugin \
+--plugin eosio::history_plugin \
+--plugin eosio::history_api_plugin \
+--filter-on="*" \
+--access-control-allow-origin='*' \
+--contracts-console \
+--http-validate-host=false \
+--verbose-http-errors >> nodeos.log 2>&1 &
+```
+Note, if nodeos is not producing any blocks you can not add new accounts or data to the blockchain. This option is only if you need nodeos to be running, but you don´t want to have new blocks added to the blockchain. 
