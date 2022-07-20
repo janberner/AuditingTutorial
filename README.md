@@ -73,7 +73,7 @@ cleos wallet create --to-console
 ```
 Safe this password for later usage!
 The default wallet can be unlocked using the just received password. Notice after some time of inactivity you will have to unlock the wallet again.
-A wallet holds all your private keys which are used to sign transactions and to authorize yourself. 
+A wallet holds all your private keys which are used to sign transactions and to authorize yourself. You can unlock the default wallet with
 
 ```
 cleos wallet unlock 
