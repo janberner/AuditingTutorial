@@ -87,7 +87,7 @@ Import private key to local wallet
 ```
 cleos wallet import
 ```
-enter private Key. Now that your wallet holds the private key you can use the public key to e.g. create accounts. 
+enter private key. Now that your wallet holds the private key you can use the public key to e.g. create accounts. 
 You will need this private key later in the tutorial.
 In the next step we import the EOSIO development key, note this key shouldn´t be used for production since it is publicly known. 
 Type again
@@ -98,8 +98,8 @@ and enter the following key
 ```
 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 ```
-The fundamentals are now set up and we can start a local blockchain by producing blocks.
-Before we start actually the blockchain, we first start [keosd](https://developers.eos.io/manuals/eos/latest/keosd/index/?query=keosd&page=1#gatsby-focus-wrapper) (a dev. tool that manages keys) 
+The fundamentals are now set up, we can start our local blockchain by staring nodeos and producing blocks.
+Before we actually start the blockchain, we first start [keosd](https://developers.eos.io/manuals/eos/latest/keosd/index/?query=keosd&page=1#gatsby-focus-wrapper) (a dev. tool that manages keys) 
 
 ```
 keosd & 
@@ -112,7 +112,7 @@ keosd &
 ```
 to stop it process and restart it again.
 
-When starting a blockchain, we can add different plugins to the blockchain to enable specific features. More information about available plugins can be found [here](https://developers.eos.io/manuals/eos/latest/nodeos/plugins/index). With the settings below a blockchain with all basic and necessary plugins is started and will begin to produce blocks. Note, in the directory the command is executed in, a file will be created *nodeos.log*, it logs the nodeos tool.
+When starting a EOSIO blockchain, we can add different plugins to the blockchain to enable specific features. More information about available plugins can be found [here](https://developers.eos.io/manuals/eos/latest/nodeos/plugins/index). With the settings below nodeos starts a block producing node with all basic and necessary plugins for the blockchain. Note, in the directory the command is executed in, a file will be created *nodeos.log*, it logs the nodeos tool.
 
 ```
 nodeos -e -p eosio \
