@@ -1,4 +1,4 @@
-# Vehicle State auditing tutorial 
+# Vehicle State audit tutorial 
 
 ### Goal of the project
 
