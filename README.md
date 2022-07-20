@@ -151,7 +151,7 @@ npm install fs
 npm install fs-extra
 ```
 
-To deploy and use a smart contract we first have to create an account, accounts are stored on the blockchain and identify individual users. A smart contract is deployed to an account, which can have a maximum of one smart contract. The account *vehiclestate* will hold the smart contract which will provide a source managment and handle the vehicle state data, from the created sources. Reminder you can unlock the wallet with `cleos wallet unlock`. 
+Before we can deploy and use a smart contract we first have to create an account, accounts are also stored on the blockchain and identify individual users. A smart contract is deployed to an account, which can have a maximum of one smart contract. The account *vehiclestate* will hold the smart contract which will provide a source managment and handle the vehicle state data, from the created sources. Reminder you can unlock the wallet with `cleos wallet unlock`. 
 
 ```
 cleos create account eosio vehiclestate <public_key>
@@ -172,7 +172,7 @@ Now we can deploy the smart contract to the blockchain
 ```
 cleos set contract vehiclestate VehicleState/ vehicleState.wasm vehicleState.abi -p vehiclestate@active
 ```
-This deploys the smart contract defined in the *.wasm* and *.abi* file to the account *vehiclestate*. 
+This deploys the smart contract, defined in the *.wasm* and *.abi* file, to the account *vehiclestate*. 
 After the contract is successfully deployed we can call the defined actions. 
 The first action we call is *addsource*, it adds a data source to the multi-index-table *sourcemanag*. Only data sources listed here will be able to add vehicle state data. 
 
@@ -213,24 +213,24 @@ You successfully added an entry to the multi-index-table. This entry and also th
   "next_key_bytes": ""
 }
  ```
- 
 
-The vehicle state information is depicted as key-value pairs (kvps). Each information has it´s own key with a value associated to it. To add these kvps to the smart contract a second account is created. 
+The vehicle state information is depicted as key-value pairs (kvps). Each information has it´s own key with a value associated to it. To add these kvps to the smart contract a second account is created. Use the same public key as before. 
 
 ```
 cleos create account eosio fleet <public_key>
 ```
-The account is called *fleet* and later uses the action *addvps* of the vehiclestate smart contract, to add kvps.
- 
-The other smart contract that is used in this tutorial is called *notarCrednce*. Is simply take a blockId and a timestamp as inputs and stores them in a table. This contract is not deployed on our local blockchain, we see its usage in the next section. 
-To build it use, in *SmartContracts* folder,
+The account is also called *fleet*, like the entry in the source managemnt talbe, and later uses the action *addvps* of the vehiclestate smart contract, to add kvps. The keys are defined in a path like notation, an example for a key cloud look like this `ecu/gateway/sw_version:`. 
+For now we leave the local blockchain running and not add any kvps. 
+
+The other smart contract used in this tutorial is called *notarCrednce*. Is simply takes a blockId and a timestamp as inputs and stores them in a table. This contract is deployed on a public blockchain, we see its usage in the next section. 
+To build it execute, in *SmartContracts* folder,
 ```
 cd NotaryCredence/ && eosio-cpp -abigen -I ./include/ -o ./notarCrednce.wasm ./src/NotaryCredence.cpp
 ```
 
 ### Jungle Testnet and notary function
 
-For this tutorial the Jungle Testnet is used as public (notary) blockchain. It is one of the leading test environments for EOSIO based applications and has basically the same features as EOS mainnet with the advantage that it is free to use. In the next steps we create an account on the Jungle Testnet and deploy the *notarCrednce* smart contract. The first thing we have to do is creating a new key pair, we can do this with our local *cleos*
+For this tutorial the Jungle Testnet is used as public blockchain. It is one of the leading test environments for EOSIO based applications and has basically the same features as EOS mainnet with the advantage that it is free to use. In the next steps we create an account on the Jungle Testnet and deploy the *notarCrednce* smart contract. The first thing we have to do is creating a new key pair, we can do this with our local *cleos*, type in your terminal
 ```
 cleos create key --to-console
 ```
@@ -293,9 +293,9 @@ You also have to make a few small changes in the code
 
 ## Populate vehicle state 
 
-Every time before you start to add informatoin (kvps) to the blockchain please run the script *Audition/notarFunction.js* with `node Audition/notarFunction.js`, make sure you are in the root folder of the project. Keep the app running and use a new terminal for further inputs. 
+Every time before you start to add vehicle state data (kvps) to the blockchain please run the script *Audition/notarFunction.js* with `node Audition/notarFunction.js`, make sure you are in the root folder of the project. Keep the app running and use a new terminal for further inputs. 
 The app periodically writes the blockID and the timestamp to the smart contract you deployed in the previous step. Hence we are using the public Jungle testnet the rescources are limited, only keep the app running as long as necessary.  
-While the app is running you can start populate the vehicle state with (pseudo) data. To do so open a new terminal, you can either use the cleos command directly in the terminal using  
+While the app is running you can start populate the vehicle state with (pseudo) data. To do so open a new terminal, you can either use the cleos command directly in the terminal like so  
 ```
 cleos push action vehiclestate addkvp '["fleet","auditvec1","{\"key1\":\"value1\"}"]' -p fleet@active
 ```
