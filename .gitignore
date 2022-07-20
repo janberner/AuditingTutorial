@@ -3,4 +3,4 @@ nodeos.log
 package-lock.json
 package.json
 .vscode/
-Audition/data/*
+Audit/data/*
