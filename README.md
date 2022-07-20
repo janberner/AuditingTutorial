@@ -222,29 +222,29 @@ cleos create account eosio fleet <public_key>
 The account is also called *fleet*, like the entry in the source managemnt talbe, and later uses the action *addvps* of the vehiclestate smart contract, to add kvps. The keys are defined in a path like notation, an example for a key cloud look like this `ecu/gateway/sw_version:`. 
 For now we leave the local blockchain running and not add any kvps. 
 
-The other smart contract used in this tutorial is called *notarCrednce*. Is simply takes a blockId and a timestamp as inputs and stores them in a table. This contract is deployed on a public blockchain, we see its usage in the next section. 
-To build it execute, in *SmartContracts* folder,
+The other smart contract used in this tutorial is called *notarCrednce*. Is simply takes a blockID and a timestamp as inputs and stores them in a table. This contract is deployed on a public blockchain, we see its usage in the next section. 
+To build it, execute the following command in the *SmartContracts* folder,
 ```
 cd NotaryCredence/ && eosio-cpp -abigen -I ./include/ -o ./notarCrednce.wasm ./src/NotaryCredence.cpp
 ```
 
 ### Jungle Testnet and notary function
 
-For this tutorial the Jungle Testnet is used as public blockchain. It is one of the leading test environments for EOSIO based applications and has basically the same features as EOS mainnet with the advantage that it is free to use. In the next steps we create an account on the Jungle Testnet and deploy the *notarCrednce* smart contract. The first thing we have to do is creating a new key pair, we can do this with our local *cleos*, type in your terminal
+For this tutorial the Jungle Testnet is used as public blockchain. It is one of the leading test environments for EOSIO based applications and has basically the same features as EOS mainnet with the advantage that it is free of charge. In the next steps we create an account on the Jungle Testnet and deploy the *notarCrednce* smart contract. The first thing we have to do is creating a new key pair, we can do this with our local *cleos*, type in your terminal
 ```
 cleos create key --to-console
 ```
 save both keys. (Command is not suitable for production).
-Import new key to local wallet
+Import the new key to local wallet
 
 ```
 cleos wallet import
 ```
-enter private Key.
+and enter private key.
 Go to a recent Jungle Testnet site e.g. [here](https://monitor3.jungletestnet.io/#home)
-Create an account with the generated public key.
-Then click on *Faucet*, enter your account name to receive EOS token. (This can be redone every 6 hours)
-Check if everything worked with *Account Info*. Your account should now have a blanace of 100.0000 EOS and 100.0000 JUNGLE.
+Create an account with the generated public key. You can use the same public key as active and as owner key. 
+Then click on *Faucet*, enter your account name to receive some EOS token. (This can be redone every 6 hours)
+Check if everything worked as intended via *Account Info*. Your account should now have a blanace of 100.0000 EOS and 100.0000 JUNGLE.
 
 Since we are now working on a public network our actions on the network requiere resources. On EOSIO based blockchains the system resources are
 
@@ -258,15 +258,15 @@ The next steps may lose their correctness as the value of an EOS token changes o
 We can act on the Jungle Testnet blockchain in the same way as we do with our local blockchain. We just add *-u <endpoint>* at the beginning of commands. You can get a list of valid end points at the Jungle Testnet site. 
 First let´s delegate some bandwith to our account. The account used here is called *auditjungle1*, please replace it with your account name. 
 ```
-cleos -u http://jungle3.cryptolions.io:8888 system delegatebw auditjungle1 auditjungle1 "5 EOS" "15 EOS" -p auditjungle1@active
+cleos -u http://jungle3.cryptolions.io:8888 system delegatebw <auditjungle1> <auditjungle1> "5 EOS" "15 EOS" -p <auditjungle1>@active
 
 ```
-This stakes 5 EOS worth of net and 15 EOS worth of CPU to your account. If you get any error saying you do not have enought *NET* or *CPU*
- repeat the command a few times, this happens when the network is busy. 
- Now we should be able to create an account for our smart contract, its name has to be an EOSIO conform name (a-z,1-5 are allowed only. Length 12). You will need this name in the next steps.  
+This stakes 5 EOS worth of net and 15 EOS worth of CPU to your account. If you get any error saying you do not have enough *NET* or *CPU*
+ repeat the command a few times, this can happen when the network is too busy. 
+ Now we should be able to create an account for our smart contract, its name has to be an EOSIO conform name (a-z,1-5 are allowed only. Length 12). You will need this name in the next steps. Use the public key you created earlieer in this section. 
   
  ```
-cleos -u http://jungle3.cryptolions.io:8888 system newaccount --stake-net "10.0000 EOS" --stake-cpu "40.0000 EOS" --buy-ram-kbytes 1000 auditjungle1 <account name> <public_key> <public_key>
+cleos -u http://jungle3.cryptolions.io:8888 system newaccount --stake-net "10.0000 EOS" --stake-cpu "40.0000 EOS" --buy-ram-kbytes 1000 <auditjungle1> <account name> <public_key> <public_key>
 ```
   
 To deploy the smart contract to the blockchain navigate to the directory *SmartContracts* and use the command
@@ -288,11 +288,12 @@ it´s the *account*, *scope* and *table*. See [link](https://developers.eos.io/m
 
 You also have to make a few small changes in the code
 - open the script *Audition/setTestnetAccount.js* and set the *const testnetAccount* to your account name.
-- open the file *init.js* and add both private keys, you saved throughout this tutorial, and the private dev key `5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3` to *defaultPrivateKey*. 
+- open the file *init.js* and add both private keys, you saved throughout this tutorial, and the private development key `5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3`, if not already listed, to *defaultPrivateKey*. 
  
 
 ## Populate vehicle state 
 
+Now everything is setup and we can start to populate our own vehicles with some pseudo data. 
 Every time before you start to add vehicle state data (kvps) to the blockchain please run the script *Audition/notarFunction.js* with `node Audition/notarFunction.js`, make sure you are in the root folder of the project. Keep the app running and use a new terminal for further inputs. 
 The app periodically writes the blockID and the timestamp to the smart contract you deployed in the previous step. Hence we are using the public Jungle testnet the rescources are limited, only keep the app running as long as necessary.  
 While the app is running you can start populate the vehicle state with (pseudo) data. To do so open a new terminal, you can either use the cleos command directly in the terminal like so  
@@ -316,13 +317,13 @@ In this way, any vehicles can be created and filled with information. If a new v
 
 ## Audition of the vehicle state
 
-In a potential real life scenario of a vehicle state audition we would export the blockchain log file *blocks.log*, from a blockchain hosted in a trusted (cloud) environment, further called source chain. This file contains all information about the blockchain in a nonhuman readable format, thus it cannot be easily compromised. In the course of auditing the auditor would name us a point of time at which he would like to review the vehicle state of one or more vehicles. We would then go to our *notarCredence* smart contract that is deployed to the EOS mainnet and search for the timestamp that is closest to the one the auditor want to see. Remark, the *notarCredence* smart contract stores blockIDs and their corresponding timestamps. Note, the EOS mainnet is a public blockchain with thousands of users and really strong security mechanisms, if you want to know more about them see [link](https://developers.eos.io/welcome/v2.1/protocol-guides/consensus_protocol#3-eosio-consensus-dpos--abft). By finding the best fitting timestamp we also get a blockID. This blockID belongs to a block in the source chain, that is during the audtion still operating. We then edit the *blocks.log* file, with a EOSIO built in utility, so only the information till the block that was determined by the given timestamp remains in the file. Now we can use this file to replay the blockchain on a local audition machine. After the replay is finished and the state of the source blockchain has been reconstructed the auditor can the vehicle state of all vehicles to this point in time and also check the active business logic, which is completely hosted on chain via the smart contracts. Furthermore we can give the auditor a notary attestaion of the blocks by comparing the local blocks with the once stored on the public blockchain. 
+In a potential real life scenario of a vehicle state audition we would export the blockchain log file *blocks.log*, from a blockchain hosted in a trusted (cloud) environment, further called source chain. This file contains all information about the blockchain in a nonhuman readable format, thus it cannot be easily compromised. In the course of auditing the auditor would name us a point of time at which he would like to review the vehicle state of one or more vehicles. We would then retrieve the data from our *notarCredence* smart contract that is deployed to the EOS mainnet and search for the timestamp that is closest to the one the auditor want to check. Remark, the *notarCredence* smart contract stores blockIDs and their corresponding timestamps. Note, the EOS mainnet is a public blockchain with thousands of users and really strong security mechanisms, if you want to know more about them see [link](https://developers.eos.io/welcome/v2.1/protocol-guides/consensus_protocol#3-eosio-consensus-dpos--abft). By finding the best fitting timestamp we also get a blockID. This blockID belongs to a block in the source chain, which is still operating during the audtion. We then edit the *blocks.log* file, with a EOSIO built in utility, so only the information till the block that was determined by the given timestamp remains in the file. Now we can use this file to replay the blockchain on a local audition machine. After the replay is finished and the state of the source blockchain has been reconstructed the auditor can check the vehicle state of all vehicles to this point in time and also check the active business logic, which is completely hosted on chain via the smart contracts. Furthermore we can give the auditor a notary attestaion of the blocks by comparing the local blocks with the once stored on the public blockchain. 
 
 
 To keep things simple and easy to implement the auditon process for this tutorial has been changed. Our source blockchain is the one you just setup earlier and the vehicle state is also created by you. It's now on you to decide how many kvps you want to have in your vehiclestate before we start the audition. If you want to add some more data go back to [Populate vehicle state ](#populate-vehicle-state).
 Once your are done filling the vehicle state and your testnet smart contract holds some notary data we can start the audition process.  
- To do this open the script *Audition/auditVechicleState.js* specify one of the self-defined *vehicleIDs* (default is auditvec1) and define a *timeOfInterest*, this should be in the processing period of the notary function (the *app.js* we started earlier). Only in this period block hashes were 'notary attested' on the public blockchain. Make sure you execute the script from the *Audition* folder with `node auditVechicleState.js`. During the audition, all relevant information is displayed in the terminal. Now the process runs like described in the section above with the difference that the source blockchain is our own local blockchain that we just populated. To ensure no data is lost a backup of the essential files is created, this also enables us to quickly reconstruct the source blockchain. You can find all the blockchain related files in the directory *~/.local/share/eosio/nodeos$*.  Remark, since we only have one blockchain that we can use for the vehicle state and the replay, the source blockchain is "deleted" for the sake of the audition but can be restored as just mentioned. Atfer the repaly is finished we have the same result as in the scenario above. 
-Also, the Vehicle state before and after the replay are read, the respective json files can be found in the *Audition/data* folder. Along side with a file containing the data of the testnet smart contract. To double check the notary attestation you (or I a real audition the auditor) can open the file *Audition/data/notaryData.json* and use `cleos get block <block_id>` with any block_id from that file and compare the timestamps. This underlines the tamperevidence of the reconstructed blockchain and its included data.
+ To do this open the script *Audition/auditVechicleState.js* specify one of the self-defined *vehicleIDs* (default is auditvec1) and define a *timeOfInterest*, this should be in the processing period of the notary function (the *app.js* we started earlier). Only in this period block hashes were 'notary attested' on the public blockchain. Make sure you execute the script from the *Audition* folder with `node auditVechicleState.js`. During the audition, all relevant information is displayed in the terminal. Now the process runs like described in the section above with the difference that the source blockchain is our own local blockchain that we just populated. To ensure no data is lost a backup, of the essential files, is created, this also enables us to quickly reconstruct the source blockchain. By default, you can find all the blockchain related files in the directory *~/.local/share/eosio/nodeos*.  Remark, since we only have one blockchain that we can use for the vehicle state and the replay, the source blockchain is "deleted" for the sake of the audition but can be restored as just mentioned. Atfer the repaly is finished we have the same result as in the scenario above. 
+Also, the Vehicle state before and after the replay are read and saved, the respective json files can be found in the *Audition/data* folder. Along side with a file containing the data of the testnet smart contract. To double check the notary attestation you (or in a real audition the auditor) can open the file *Audition/data/notaryData.json* and use `cleos get block <block_id>` with any block_id from that file and compare the timestamps. This underlines the tamperevidence of the reconstructed blockchain and its included data.
 
 To restore your origin source blockchain use `node restoreSourceChain.js`, also from the directory 
 
