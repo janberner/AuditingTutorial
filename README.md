@@ -16,7 +16,7 @@ The next steps will guide you through all the necessary installation and configu
   - recommend is a virtual machine (VM) with Linux installed
 - install IDE of your choice, e.g. VS Code 
 
-To setup a VM with virtual box and install Ubuntu you can find several step-by-step guides online, further information see [setup Ubuntu](#setup-virtual-machine-with-ubuntu).
+To setup a VM with virtual box and install Ubuntu you can find several step-by-step guides online, for further information and tips see [setup Ubuntu](#setup-virtual-machine-with-ubuntu).
 
 Info: If you see a command with something like `<word>` you'll have to replace it with something you mostly defined or created before.  
   
