@@ -314,7 +314,13 @@ const values = ["value1","value2"]
 ```
 as you can see it is possible to multiple kvps at once.  
 In this way, any vehicles can be created and filled with information. If a new value is transferred later for a key that has already been set, the old value in the table is overwritten. The information about it is not lost. If you look at the state of the blockchain at a time before the new value was added, you see the initial value in the vehicle state. When you are finished stop the *app* and also terminate nodeos with `pkill nodeos`.
-
+Again you can see all the kvps of one vehicle with this command
+  
+ ```
+ cleos get table vehiclestate auditvec1 vehiclestate
+ ```
+  
+  
 ## Vehicle state audit
 
 In a potential real-life scenario of a vehicle state audit, we would export the blockchain log file *blocks.log*, from a blockchain hosted in a trusted (cloud) environment, further called source chain. This file contains all information about the blockchain in a nonhuman readable format, thus it cannot be easily compromised. In the course of an audit the auditor would name us a point of time at which he would like to review the vehicle state of one or more vehicles. We would then retrieve the data from our *notarCredence* smart contract that is deployed to the EOS mainnet and search for the timestamp that is closest to the one the auditor want to check. Remark, the *notarCredence* smart contract stores blockIDs and their corresponding timestamps. Note, the EOS mainnet is a public blockchain with thousands of users and really strong security mechanisms, if you want to know more about them see [link](https://developers.eos.io/welcome/v2.1/protocol-guides/consensus_protocol#3-eosio-consensus-dpos--abft). By finding the best fitting timestamp we also get a blockID. This blockID belongs to a block in the source chain, which is still operating during the audtion. We then edit the *blocks.log* file, with a EOSIO built in utility, so only the information till the block that was determined by the given timestamp remains in the file. Now we can use this file to replay the blockchain on a local audit machine. After the replay is finished and the state of the source blockchain has been reconstructed the auditor can check the vehicle state of all vehicles to this point in time and check the active business logic, which is completely hosted on chain via the smart contracts. Furthermore, we can give the auditor a notary attestation of the blocks by comparing the local blocks with the once stored on the public blockchain. 
