@@ -135,12 +135,12 @@ You can stop nodeos and thus also the block production with the command `pkill n
  
  
  ### Deploy Smart Contracts
- To clone this repo, change on the VM to a folder where the project should be stored 
+ To clone this repo, change on the VM to a folder where the project should be stored and type
   
 ```
 git clone https://github.com/janberner/AuditingTutorial.git
 ```
-Login with your Github credentials. 
+login with your Github credentials. 
 Install the required node modules in the cloned folder with 
 
 ```
