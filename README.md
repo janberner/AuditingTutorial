@@ -59,7 +59,7 @@ wget https://github.com/eosio/eos/releases/download/v2.1.0/eosio_2.1.0-1-ubuntu-
 sudo apt install ./eosio_2.1.0-1-ubuntu-20.04_amd64.deb
 ```
 
-Install EOSIO.cdt, a toolchain for WebAssembly (WASM) and set of tools to facilitate smart contract development for the EOSIO platform.
+Install [EOSIO.cdt](https://developers.eos.io/manuals/eosio.cdt/latest/index/#eosiocdt-contract-development-toolkit), a toolchain for WebAssembly (WASM) and set of tools to facilitate smart contract development for the EOSIO platform.
 
 ```
 wget https://github.com/eosio/eosio.cdt/releases/download/v1.8.0/eosio.cdt_1.8.0-1-ubuntu-18.04_amd64.deb
