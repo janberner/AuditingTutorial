@@ -301,7 +301,7 @@ While the app is running you can start populating the vehicle state with (pseudo
 cleos push action vehiclestate addkvp '["fleet","auditvec1","{\"key1\":\"value1\"}"]' -p fleet@active
 ```
 with this example the owner *fleet* adds the attribute *"color: red"* to the vehicle with the vehicleID *auditvec1*. Remark, also the vehicleID has to follow the [EOSIO name conventions](https://developers.eos.io/manuals/eosio.cdt/latest/best-practices/naming-conventions) 
-Another way of adding information to a vehicle is by script. To do so open the script *addToVehicleState/setKvps.js* and fill in the data.  
+Another way of adding information to a vehicle is via script. To do so open the script *addToVehicleState/setKvps.js* and fill in the data you would like to add.   
 An example could look like this
 ```
 ...
