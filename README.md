@@ -274,7 +274,7 @@ To deploy the smart contract to the blockchain navigate to the directory *SmartC
 cleos -u http://jungle3.cryptolions.io:8888 set contract <account name> NotaryCredence/ notarCrednce.wasm notarCrednce.abi -p <account name>@active
 
 ```
-  
+use the account name of the account you just created.
 You can view an accounts information by typing
 ```
 cleos -u http://jungle3.cryptolions.io:8888 get account <account name>
