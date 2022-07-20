@@ -2,7 +2,7 @@
 
 ### Goal of the project
 
-This tutorial will give you all the needed information and scripts so that you can setup a local blockchain. Deploy smarts contracts to the blockchain and interact with them.  At the end of this tutorial you will be able to populate your own vehicle state, on the blockchain. You will also have a mechanism (called notary credence) that makes the data on your local blockchain tamper evident using a public blockchain (Jungle Testnet). Thus you will be able to do your own simulated audition. 
+This tutorial will give you all the needed information and scripts so that you can setup a local blockchain. Deploy smarts contracts to the blockchain and interact with them.  At the end of this tutorial you will be able to populate your own vehicle state, on the blockchain. You will also have a mechanism (called notary credence) that makes the data on your local blockchain tamper evident using a public blockchain (Jungle Testnet). This method was developted to meet new UNECE regulations regarding the auditability of vehicle state information. Thus you will be able to do your own simulated audition. 
 Most of the code is designed to run on a single virtual machine, only the notary function uses a public blockchain to store information, via internet. Note the some of the shown setting are not meant to be used in a production environment. This project should be seen as a development project.
 The next steps will guide you through all the neccessary installation and configuration. To learn more about the audition process and the idea behind it go to [Audition](#audition-of-the-vehicle-state).
 
