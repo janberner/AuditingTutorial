@@ -219,7 +219,7 @@ The vehicle state information is depicted as key-value pairs (kvps). Each inform
 ```
 cleos create account eosio fleet <public_key>
 ```
-The account is also called *fleet*, like the entry in the source management table, and later uses the action *addvps* of the vehiclestate smart contract, to add kvps. The keys are defined in a path like notation, an example for a key cloud look like this `ecu/gateway/sw_version:`. 
+The account is also called *fleet*, like the entry in the source management table, and later uses the action *addvps* of the vehiclestate smart contract, to add kvps. The keys are defined in a path like notation, an example for a key could look like this `ecu/gateway/sw_version:`. 
 For now, we leave the local blockchain running and not add any kvps. 
 
 The other smart contract used in this tutorial is called *notarCrednce*. Is simply takes a blockID and a timestamp as inputs and stores them in a table. This contract is deployed on a public blockchain, we see its usage in the next section. 
