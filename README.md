@@ -365,3 +365,5 @@ nodeos -e -p eosio \
 --verbose-http-errors >> nodeos.log 2>&1 &
 ```
 Note, if nodeos is not producing any blocks you can not add new accounts or data to the blockchain. This option is only if you need nodeos to be running, but you don´t want to have new blocks added to the blockchain. 
+
+These command can also be found in the *cheatsheet.txt* file. 
