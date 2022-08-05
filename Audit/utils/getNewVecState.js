@@ -12,7 +12,7 @@ async function getNewVecState(vehicleID) {
     var response = await getTableData("vehiclestate", "vehiclestate", vehicleID)
     
     let hashdata = JSON.stringify(response, null, 2)
-    fs.writeFileSync('./Audition/data/replayedVecState.json', hashdata)
+    fs.writeFileSync('./Audit/data/replayedVecState.json', hashdata)
     console.log('Vehicle state at the nearest valided block to the given timestamp saved in ', process.cwd()+'/data/replayedVehiclestate.json')
     return response
   }
