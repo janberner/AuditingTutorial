@@ -11,7 +11,6 @@ The next steps will guide you through all the necessary installation and configu
 
 - Github Account
 - Access to this [repo](https://github.com/janberner/AuditingTutorial) 
-  - for now it is a private repo, to get access contact jan.fabian.berner@gmail.com
 - following guide is made for Ubuntu 20.04
   - recommend is a virtual machine (VM) with Linux installed
 - install IDE of your choice, e.g. VS Code 
